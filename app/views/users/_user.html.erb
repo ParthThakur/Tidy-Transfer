@@ -13,6 +13,9 @@
     <strong>Last Name:</strong>
     <%= user.last_name %>
   </p>
-  
+
+  <% user.files.each do |f| %>
+  <p><%= f %></p>
+  <% end %>  
 
 </div>
