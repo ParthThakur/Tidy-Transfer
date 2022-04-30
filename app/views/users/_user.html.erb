@@ -14,8 +14,10 @@
     <%= user.last_name %>
   </p>
 
-  <% user.files.each do |f| %>
-  <p><%= f %></p>
-  <% end %>  
+  <div>
+    <% user.transfer.each do |f| %>
+      <p><%= f.file %></p>
+    <% end %>
+  </div>
 
 </div>

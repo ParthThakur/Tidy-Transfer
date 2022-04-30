@@ -1,0 +1,35 @@
+<%= form_with(model: transfer) do |form| %>
+  <% if transfer.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(transfer.errors.count, "error") %> prohibited this transfer from being saved:</h2>
+
+      <ul>
+        <% transfer.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.file_field :file, multiple: true %>
+  </div>
+
+  <div>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div style="display:none">
+    <%= form.text_field :user_id, value: session[:user_id] %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

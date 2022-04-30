@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :transfers
   get 'users' => 'users#index'
   controller :sessions do
     get 'login' => :new

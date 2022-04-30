@@ -4,7 +4,8 @@
 
 <div>
   <%= link_to "Edit this user", edit_user_path(@user) %> |
-  <%= link_to "Back to users", users_path %>
+
+  <%= link_to "Upload a File", new_transfer_path %>
 
   <%= button_to "Destroy this user", @user, method: :delete %>
   <%= button_to "Logout", logout_path, method: :delete %>
