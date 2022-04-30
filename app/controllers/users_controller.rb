@@ -1,13 +1,24 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
+  skip_before_action :authorize, only: [:new, :create]
 
   # GET /users or /users.json
   def index
-    @users = User.order(:email)
+    @current_user = User.find_by_id(session[:user_id])
+
+    respond_to do |format|
+      format.html {redirect_to user_url(@current_user)}
+    end
   end
 
   # GET /users/1 or /users/1.json
   def show
+    @user = User.find(params[:id])
+    unless session[:user_id] == @user.id
+      flash[:notice] = "You don't have access to that information!"
+      redirect_to user_url(session[:user_id])
+      return
+    end
   end
 
   # GET /users/new
