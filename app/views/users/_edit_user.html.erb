@@ -24,4 +24,6 @@
   <div>
     <%= form.submit %>
   </div>
+
+  <%= button_to "Delete Profile", user, method: :delete, confirm: "Are you completely sure?" %>
 <% end %>
