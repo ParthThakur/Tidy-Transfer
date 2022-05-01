@@ -85,7 +85,7 @@ class TransfersController < ApplicationController
     end
 
     def authorize
-      unless session[:user_id] == @transfer.user_id
+      unless session[:user_id] == @transfer.user_id || @transfer.shared
         redirect_to user_url(@user), notice: "You don't have the permission to do that."
       end
     end
