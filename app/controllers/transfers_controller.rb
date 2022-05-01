@@ -26,7 +26,7 @@ class TransfersController < ApplicationController
     @transfer = Transfer.new(transfer_params)
     @transfer.user_id = session[:user_id]
     @transfer.file.attach(params[:transfer][:file])
-    unless params[:title]
+    unless params[:transfer][:title]
       @transfer.title = @transfer.file.filename
     end
     @transfer.file_type = @transfer.file.content_type
