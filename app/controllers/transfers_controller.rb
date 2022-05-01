@@ -26,6 +26,9 @@ class TransfersController < ApplicationController
     @transfer = Transfer.new(transfer_params)
     @transfer.user_id = session[:user_id]
     @transfer.file.attach(params[:transfer][:file])
+    unless params[:title]
+      @transfer.title = @transfer.file.filename
+    end
 
     respond_to do |format|
       if @transfer.save

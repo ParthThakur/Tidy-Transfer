@@ -1,19 +1,28 @@
 <section>
-    <% if flash[:notice] %>
-        <aside><%= flash[:notice] %></aside>
-    <% end %>
+  <% if flash[:notice] %>
+    <aside><%= flash[:notice] %></aside>
+  <% end %>
 
-    <%= form_tag do %>
-        <div>
-            <%= label_tag :email, 'Email' %>
-            <%= text_field_tag :email, params[:email] %>
-        </div>
-        <div>
-            <%= label_tag :password, 'Password' %>
-            <%= text_field_tag :password, params[:password] %>
-        </div>
-        <div>
-            <%= submit_tag "Login" %>
-        </div>
-    <% end %>
+  <div class="row d-flex flex-row justify-content-center align-items-center" style="height:100vh">
+    <div class="col">
+      <%= form_tag do %>
+      <div class="mb-3">
+        <%= label_tag :email, 'Email', class:"form-label"%>
+        <%= text_field_tag :email, params[:email], class:"form-control" %>
+      </div>
+      <div class="mb-3">
+        <%= label_tag :password, 'Password', class:"form-label" %>
+        <%= text_field_tag :password, params[:password], class:"form-control" %>
+      </div>
+      <div class="mb-3">
+        <%= submit_tag "Login", class:"btn btn-primary" %>
+      </div>
+      <% end %>
+    </div>
+
+    <div class="col d-flex flex-column align-items-end">
+      <h1>TidyTransfer</h1>
+      <p>Transfer files gracefully.</p>
+    </div>
+  </div>
 </section>

@@ -5,10 +5,5 @@
 <div id="transfers">
   <% @transfers.each do |transfer| %>
     <%= render transfer %>
-    <p>
-      <%= link_to "Show this transfer", transfer %>
-    </p>
   <% end %>
 </div>
-
-<%= link_to "New transfer", new_transfer_path %>
