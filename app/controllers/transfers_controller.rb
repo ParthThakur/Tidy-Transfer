@@ -29,6 +29,7 @@ class TransfersController < ApplicationController
     unless params[:title]
       @transfer.title = @transfer.file.filename
     end
+    @transfer.file_type = @transfer.file.content_type
 
     respond_to do |format|
       if @transfer.save
