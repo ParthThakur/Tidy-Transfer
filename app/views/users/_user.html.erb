@@ -36,7 +36,7 @@
             <% if transfer.sharable_link %>
               <%= link_to "Tidy Link", "/s/#{transfer.sharable_link}" %>
             <% else %>
-              <%= button_to "Generate Sharable Link", "/short_link/#{transfer.id}", method: :post, class:"btn btn-success"%>
+              <%= button_to "Generate Tidy Link", "/short_link/#{transfer.id}", method: :post, class:"btn btn-success"%>
             <% end %>
           </td>
           <td><%= button_to "Delete File", transfer, method: :delete, class:"btn btn-danger" %></td>
