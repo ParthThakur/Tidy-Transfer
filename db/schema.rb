@@ -47,7 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_01_181046) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "shared", default: false, null: false
+    t.boolean "shared", default: false
     t.index ["user_id"], name: "index_transfers_on_user_id"
   end
 
