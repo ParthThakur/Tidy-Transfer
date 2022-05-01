@@ -10,7 +10,6 @@ class TransfersController < ApplicationController
 
   # GET /transfers/1 or /transfers/1.json
   def show
-    @user = User.find_by_id(params[:id])
   end
 
   # GET /transfers/new
@@ -26,6 +25,7 @@ class TransfersController < ApplicationController
   def create
     @transfer = Transfer.new(transfer_params)
     @transfer.user_id = session[:user_id]
+    @transfer.file.attach(params[:transfer][:file])
 
     respond_to do |format|
       if @transfer.save
@@ -77,7 +77,7 @@ class TransfersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def transfer_params
-      params.require(:transfer).permit(:title, :type, :description, :sharable_link, file: [])
+      params.require(:transfer).permit(:title, :type, :description, :sharable_link, :file)
     end
 
     def authorize

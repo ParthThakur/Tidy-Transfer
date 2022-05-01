@@ -1,4 +1,4 @@
 class Transfer < ApplicationRecord
   belongs_to :user
-  has_many_attached :file
+  has_one_attached :file
 end
