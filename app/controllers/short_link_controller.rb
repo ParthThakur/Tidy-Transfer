@@ -1,5 +1,9 @@
 class ShortLinkController < ApplicationController
+    # Short link controller generates and processes short (tidy) links for 
+    # the uploaded files.
+
     def post
+        # Create a tidy link for a particular transfer.
         @transfer = Transfer.find_by_id(params[:id])
         tries = 0
         begin
@@ -16,6 +20,7 @@ class ShortLinkController < ApplicationController
     end
 
     def show
+        # Prosess the tidy link and display the proper file.
         @transfer = Transfer.find_by(sharable_link: params[:url])
         unless @transfer.nil?
             redirect_to url_for(@transfer)
@@ -26,6 +31,7 @@ class ShortLinkController < ApplicationController
 
     private
         def get_short_link
+            # Generate a random 6 character string.
             charset = Array('A'..'Z') + Array('a'..'z') + Array(0..9)
             return Array.new(6) { charset.sample }.join
         end
