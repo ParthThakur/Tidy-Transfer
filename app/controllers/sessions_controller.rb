@@ -1,6 +1,10 @@
 class SessionsController < ApplicationController
   skip_before_action :authorize, only: [:new, :create]
+
   def new
+    if session[:user_id]
+      redirect_to user_url(session[:user_id])
+    end
   end
 
   def create
