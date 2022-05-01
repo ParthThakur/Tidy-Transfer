@@ -15,7 +15,7 @@
         <%= password_field_tag :password, params[:password], class:"form-control" %>
       </div>
       <div class="mb-3">
-        <%= submit_tag "Login", class:"btn btn-primary" %>
+        <%= submit_tag "Login", class:"btn btn-primary pe-3" %>
       </div>
       <% end %>
     </div>
@@ -23,6 +23,8 @@
     <div class="col d-flex flex-column align-items-end">
       <h1>TidyTransfer</h1>
       <p>Transfer files gracefully.</p>
+      <%= link_to "Sign Up", new_user_path, class:"btn btn-primary flex-fill" %>
+
     </div>
   </div>
 </section>
