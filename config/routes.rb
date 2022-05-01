@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     delete 'logout' => :destroy
   end
 
+  delete 'transfers/:id', to: 'transfers#destroy'
+
   get 'sessions/create'
   get 'sessions/destroy'
   resources :users

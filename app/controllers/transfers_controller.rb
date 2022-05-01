@@ -1,5 +1,6 @@
 class TransfersController < ApplicationController
   before_action :set_transfer, only: %i[ show edit update destroy ]
+  before_action :authorize, only: %i[ show edit update destroy ]
 
   # GET /transfers or /transfers.json
   def index
@@ -38,12 +39,10 @@ class TransfersController < ApplicationController
     @transfer = Transfer.new(transfer_params)
     @transfer.user_id = session[:user_id]
 
-    @user = User.find_by_id(session[:user_id])
-
     respond_to do |format|
       if @transfer.save
-        format.html { redirect_to user_url(@user), notice: "File successfully uploaded." }
-        format.json { render :show, status: :created, location: @user }
+        format.html { redirect_to user_url(session[:user_id]), notice: "File successfully uploaded." }
+        format.json { render :show, status: :created }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @transfer.errors, status: :unprocessable_entity }
@@ -66,10 +65,11 @@ class TransfersController < ApplicationController
 
   # DELETE /transfers/1 or /transfers/1.json
   def destroy
+    @transfer.file.purge_later
     @transfer.destroy
 
     respond_to do |format|
-      format.html { redirect_to transfers_url, notice: "Transfer was successfully destroyed." }
+      format.html { redirect_to user_url(@user), notice: "File was successfully deleted." }
       format.json { head :no_content }
     end
   end
@@ -77,11 +77,18 @@ class TransfersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_transfer
+      @user = User.find_by_id(session[:user_id])
       @transfer = Transfer.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def transfer_params
-      params.require(:transfer).permit(:title, :type, :description, :sharable_link, :user_id, file: [])
+      params.require(:transfer).permit(:title, :type, :description, :sharable_link, file: [])
+    end
+
+    def authorize
+      unless session[:user_id] == @transfer.user_id
+        redirect_to user_url(@user), notice: "You don't have the permission to do that."
+      end
     end
 end

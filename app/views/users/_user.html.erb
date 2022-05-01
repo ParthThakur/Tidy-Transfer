@@ -17,6 +17,7 @@
   <div>
     <% user.transfer.each do |f| %>
       <p><%= f.file %></p>
+      <%= button_to "Destroy this transfer", f, method: :delete %>
     <% end %>
   </div>
 
