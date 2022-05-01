@@ -1,5 +1,5 @@
 class TransfersController < ApplicationController
-  before_action :user_logged_in
+  before_action :user_logged_in, only: %i[ index new edit create update destroy ]
   before_action :set_transfer, only: %i[ show edit update destroy ]
   before_action :authorize, only: %i[ show edit update destroy ]
 
@@ -86,7 +86,7 @@ class TransfersController < ApplicationController
 
     def authorize
       unless session[:user_id] == @transfer.user_id || @transfer.shared
-        redirect_to user_url(@user), notice: "You don't have the permission to do that."
+        redirect_to login_url, notice: "You don't have the permission to do that."
       end
     end
 end
