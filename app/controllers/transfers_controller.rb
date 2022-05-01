@@ -36,6 +36,8 @@ class TransfersController < ApplicationController
   # POST /transfers or /transfers.json
   def create
     @transfer = Transfer.new(transfer_params)
+    @transfer.user_id = session[:user_id]
+
     @user = User.find_by_id(session[:user_id])
 
     respond_to do |format|
