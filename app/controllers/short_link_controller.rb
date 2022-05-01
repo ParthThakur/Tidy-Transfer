@@ -8,7 +8,6 @@ class ShortLinkController < ApplicationController
         tries = 0
         begin
             @transfer.sharable_link = get_short_link
-            @transfer.shared = true
             @transfer.save
             redirect_to request.referrer
         rescue ActiveRecord::RecordInvalid
@@ -23,9 +22,7 @@ class ShortLinkController < ApplicationController
     def show
         # Prosess the tidy link and display the proper file.
         @transfer = Transfer.find_by(sharable_link: params[:url])
-        unless @transfer.nil?
-            redirect_to transfer_path(id: @transfer.id)
-        else
+        if @transfer.nil?
             redirect_to 'errors/404', status: 404
         end
     end

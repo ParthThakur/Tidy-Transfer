@@ -26,7 +26,7 @@ class TransfersController < ApplicationController
     @transfer = Transfer.new(transfer_params)
     @transfer.user_id = session[:user_id]
     @transfer.file.attach(params[:transfer][:file])
-    unless params[:transfer][:title]
+    if params[:transfer][:title] == ""
       @transfer.title = @transfer.file.filename
     end
     @transfer.file_type = @transfer.file.content_type
@@ -85,7 +85,7 @@ class TransfersController < ApplicationController
     end
 
     def authorize
-      unless session[:user_id] == @transfer.user_id || @transfer.shared
+      unless session[:user_id] == @transfer.user_id
         redirect_to login_url, notice: "You don't have the permission to do that."
       end
     end

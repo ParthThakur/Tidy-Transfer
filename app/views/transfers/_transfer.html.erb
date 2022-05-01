@@ -3,17 +3,17 @@
   <p><%= transfer.description %></p>
   <p><%= transfer.file_type %></p>
   <div class="d-flex flex-row">
-    <div class="pe-5">
-      <% if transfer.sharable_link %>
-        <%= link_to "Tidy Link", "/s/#{transfer.sharable_link}", class:"btn btn-success" %>
-      <% else %>
-        <%= button_to "Generate Tidy Link", "/short_link/#{transfer.id}", method: :post, class:"btn btn-success"%>
-      <% end %>
-    </div>
     <div class="pe-5"><%= link_to "Download File", rails_blob_url(transfer.file), 
                           disposition: "attachment", target:"_blank",
                           class:"btn btn-warning"%></div>
     <% if session[:user_id] == transfer.user_id %>
+      <div class="pe-5">
+        <% if transfer.sharable_link %>
+          <%= link_to "Tidy Link", "/s/#{transfer.sharable_link}", class:"btn btn-success" %>
+        <% else %>
+          <%= button_to "Generate Tidy Link", "/short_link/#{transfer.id}", method: :post, class:"btn btn-success"%>
+        <% end %>
+      </div>
       <div class="pe-5"><%= button_to "Delete File", transfer, method: :delete, class:"btn btn-danger" %></div>
     <% end %>
   </div>

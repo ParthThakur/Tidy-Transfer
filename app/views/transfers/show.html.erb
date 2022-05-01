@@ -3,5 +3,7 @@
 <%= render @transfer %>
 
 <div class="row">
-  <%= link_to "Back", user_url(@user) %>
+  <% if @user %>
+    <%= link_to "Back", user_url(@user) %>
+  <% end %>
 </div>
