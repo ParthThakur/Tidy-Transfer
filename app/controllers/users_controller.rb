@@ -4,10 +4,11 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @current_user = User.find_by_id(session[:user_id])
-
-    respond_to do |format|
-      format.html {redirect_to user_url(@current_user)}
+    unless session[:user_id]
+      redirect_to login_url, notice: "Please Login."
+    else
+      @current_user = User.find_by_id(session[:user_id])
+      redirect_to user_url(@current_user)
     end
   end
 
