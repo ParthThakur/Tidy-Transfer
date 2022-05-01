@@ -18,6 +18,11 @@
     <% user.transfer.each do |f| %>
       <p><%= f.file %></p>
       <%= button_to "Destroy this transfer", f, method: :delete %>
+      <% if f.sharable_link %>
+        <%= f.sharable_link %>
+      <% else %>
+      <%# <%= button_to "Generate Sharable Link", "short_link/#{transfer.id}", method: :post%> %>
+      <% end %>
     <% end %>
   </div>
 

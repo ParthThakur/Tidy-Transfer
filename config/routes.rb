@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     delete 'logout' => :destroy
   end
 
+  post 'short_link/:id', to: 'short_link#post'
+  get 's/:url', to: 'short_link#show'
+
   delete 'transfers/:id', to: 'transfers#destroy'
 
   get 'sessions/create'

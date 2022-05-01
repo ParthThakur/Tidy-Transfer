@@ -16,7 +16,11 @@
 
   <p>
     <strong>Sharable link:</strong>
-    <%= transfer.sharable_link %>
+    <% if transfer.sharable_link %>
+      <%= transfer.sharable_link %>
+    <% else %>
+      <%= button_to "Generate Sharable Link", "/short_link/#{transfer.id}", method: :post%>
+    <% end %>
   </p>
 
   <p>
