@@ -1,28 +1,16 @@
 class TransfersController < ApplicationController
+  before_action :user_logged_in
   before_action :set_transfer, only: %i[ show edit update destroy ]
   before_action :authorize, only: %i[ show edit update destroy ]
 
   # GET /transfers or /transfers.json
   def index
-    if session[:user_id]
-      @transfers = Transfer.where(user_id: session[:user_id])
-    else
-      redirect_to login_url, notice: "You need to be logged in!"
-    end
+    @transfers = Transfer.where(user_id: session[:user_id])
   end
 
   # GET /transfers/1 or /transfers/1.json
   def show
-    if session[:user_id]
-      @user = User.find_by_id(params[:id])
-      unless session[:user_id] == @user.id
-        flash[:notice] = "You don't have access to that information!"
-        redirect_to user_url(session[:user_id])
-        return
-      end
-    else
-      redirect_to login_url, notice: "You need to be logged in!"
-    end
+    @user = User.find_by_id(params[:id])
   end
 
   # GET /transfers/new
@@ -76,6 +64,12 @@ class TransfersController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def user_logged_in
+      unless session[:user_id]
+        redirect_to login_url, notice: "You need to login first."
+      end
+    end
+
     def set_transfer
       @user = User.find_by_id(session[:user_id])
       @transfer = Transfer.find(params[:id])
