@@ -1,4 +1,4 @@
-<div id="<%= dom_id user %>">
+<div id="<%= dom_id user %>"  class="row">
   <p>
     <strong>Email:</strong>
     <%= user.email %>
@@ -13,9 +13,34 @@
     <strong>Last Name:</strong>
     <%= user.last_name %>
   </p>
-
-  <% user.files.each do |f| %>
-  <p><%= f %></p>
-  <% end %>  
-
 </div>
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>File name</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <% user.transfer.each_with_index do |transfer, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= link_to transfer.title, transfer %></td>
+          <td><%= transfer.description %></td>
+          <td><%= transfer.file_type %></td>
+          <td>
+            <% if transfer.sharable_link %>
+              <%= link_to "Tidy Link", "/s/#{transfer.sharable_link}" %>
+            <% else %>
+              <%= button_to "Generate Tidy Link", "/short_link/#{transfer.id}", method: :post, class:"btn btn-success"%>
+            <% end %>
+          </td>
+          <td><%= button_to "Delete File", transfer, method: :delete, class:"btn btn-danger" %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>

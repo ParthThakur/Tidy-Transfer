@@ -1,0 +1,9 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @transfer %>
+
+<div class="row">
+  <% if @user %>
+    <%= link_to "Back", user_url(@user) %>
+  <% end %>
+</div>

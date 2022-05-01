@@ -1,0 +1,9 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Transfers</h1>
+
+<div id="transfers">
+  <% @transfers.each do |transfer| %>
+    <%= render transfer %>
+  <% end %>
+</div>

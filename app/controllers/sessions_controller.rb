@@ -1,6 +1,10 @@
 class SessionsController < ApplicationController
   skip_before_action :authorize, only: [:new, :create]
+
   def new
+    if session[:user_id]
+      redirect_to user_url(session[:user_id])
+    end
   end
 
   def create
@@ -9,7 +13,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       redirect_to user_url(user)
     else
-      redirect_to login_url, alert: "Invalid Email or Password."
+      redirect_to login_url, notice: "Invalid Email or Password."
     end
   end
 

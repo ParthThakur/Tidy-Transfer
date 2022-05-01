@@ -1,0 +1,12 @@
+<p style="color: green"><%= notice %></p>
+
+<div id="<%= dom_id @transfer %>" class="row pb-5">
+  <h3><%= @transfer.title %></h3>
+  <p><%= @transfer.description %></p>
+  <p><%= @transfer.file_type %></p>
+  <div class="d-flex flex-row">
+    <div class="pe-5"><%= link_to "Download File", rails_blob_url(@transfer.file), 
+                          disposition: "attachment", target:"_blank",
+                          class:"btn btn-warning"%></div>
+  </div>
+</div>
