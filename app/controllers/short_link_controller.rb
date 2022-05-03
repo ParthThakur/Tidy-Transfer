@@ -11,8 +11,11 @@ class ShortLinkController < ApplicationController
             @transfer.save
             redirect_to request.referrer
         rescue ActiveRecord::RecordInvalid
+            # Generate a new link if generated link already exists.
             tries += 1
             unless tries > 10
+                # Regenerate the link only 10 times. If a random 6 character string isn't
+                # found after 10 tries, no need to keep trying indefinitly.
                 retry
             end
             raise e
