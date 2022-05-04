@@ -1,6 +1,7 @@
 class ShortLinkController < ApplicationController
     # Short link controller generates and processes short (tidy) links for 
     # the uploaded files.
+    skip_before_action :authenticate_user!, only: :show
 
     def post
         # Create a tidy link for a particular transfer.
@@ -25,8 +26,13 @@ class ShortLinkController < ApplicationController
     def show
         # Prosess the tidy link and display the proper file.
         @transfer = Transfer.find_by(sharable_link: params[:url])
+        
         if @transfer.nil?
             redirect_to 'errors/404', status: 404
+        end
+
+        if current_user == @transfer.user
+            redirect_to transfer_url(@transfer)
         end
     end
 

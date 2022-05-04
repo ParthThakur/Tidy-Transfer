@@ -1,11 +1,9 @@
 class TransfersController < ApplicationController
-  before_action :user_logged_in, only: %i[ index new edit create update destroy ]
   before_action :set_transfer, only: %i[ show edit update destroy ]
-  before_action :authorize, only: %i[ show edit update destroy ]
 
   # GET /transfers or /transfers.json
   def index
-    @transfers = Transfer.where(user_id: session[:user_id])
+    @transfers = Transfer.where(user_id: current_user)
   end
 
   # GET /transfers/1 or /transfers/1.json
@@ -24,7 +22,7 @@ class TransfersController < ApplicationController
   # POST /transfers or /transfers.json
   def create
     @transfer = Transfer.new(transfer_params)
-    @transfer.user_id = session[:user_id]
+    @transfer.user = current_user
     @transfer.file.attach(params[:transfer][:file])
     if params[:transfer][:title] == ""
       @transfer.title = @transfer.file.filename
@@ -33,9 +31,10 @@ class TransfersController < ApplicationController
 
     respond_to do |format|
       if @transfer.save
-        format.html { redirect_to user_url(session[:user_id]), notice: "File successfully uploaded." }
+        format.html { redirect_to user_url(current_user), notice: "File successfully uploaded." }
         format.json { render :show, status: :created }
       else
+        @transfer.title = ""
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @transfer.errors, status: :unprocessable_entity }
       end
@@ -61,32 +60,19 @@ class TransfersController < ApplicationController
     @transfer.destroy
 
     respond_to do |format|
-      format.html { redirect_to user_url(@user), notice: "File was successfully deleted." }
+      format.html { redirect_to user_url(current_user), notice: "File was successfully deleted." }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def user_logged_in
-      unless session[:user_id]
-        redirect_to login_url, notice: "You need to login first."
-      end
-    end
-
     def set_transfer
-      @user = User.find_by_id(session[:user_id])
       @transfer = Transfer.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def transfer_params
       params.require(:transfer).permit(:title, :type, :description, :sharable_link, :file)
-    end
-
-    def authorize
-      unless session[:user_id] == @transfer.user_id
-        redirect_to login_url, notice: "You don't have the permission to do that."
-      end
     end
 end

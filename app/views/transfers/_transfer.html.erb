@@ -6,7 +6,7 @@
     <div class="pe-5"><%= link_to "Download File", rails_blob_url(transfer.file), 
                           disposition: "attachment", target:"_blank",
                           class:"btn btn-warning"%></div>
-    <% if session[:user_id] == transfer.user_id %>
+    <% if current_user == @transfer.user %>
       <div class="pe-5">
         <% if transfer.sharable_link %>
           <%= link_to "Tidy Link", "/s/#{transfer.sharable_link}", class:"btn btn-success" %>

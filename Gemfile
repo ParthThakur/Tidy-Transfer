@@ -73,3 +73,6 @@ end
 
 # Record validators for Active Storage
 gem 'file_validators'
+
+# User authentication and stuff.
+gem 'devise', '~> 4.8', '>= 4.8.1'
