@@ -13,13 +13,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :transfers
-  get 'users' => 'users#index'
 
   post 'short_link/:id', to: 'short_link#post'
   get 's/:url', to: 'short_link#show'
 
   delete 'transfers/:id', to: 'transfers#destroy'
 
+  resources :transfers
   resources :users
 end
