@@ -1,15 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  type: 
+  title: File_one.pdf
+  file_type: 
   description: MyText
-  sharable_link: MyString
+  sharable_link:
   user: one
 
 two:
-  title: MyString
-  type: 
+  title: File_two.pdf
+  file_type: 
   description: MyText
-  sharable_link: MyString
+  sharable_link:
   user: two

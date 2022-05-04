@@ -3,6 +3,11 @@ require "test_helper"
 class TransfersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @transfer = transfers(:one)
+
+    # User needs to be logged in for most of the actiona on transfers controller.
+    john = users(:one)
+    jane = users(:two)
+    post login_url, params: {email: john.email, password: 'secret'}
   end
 
   test "should get index" do
@@ -17,10 +22,11 @@ class TransfersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create transfer" do
     assert_difference("Transfer.count") do
-      post transfers_url, params: { transfer: { description: @transfer.description, sharable_link: @transfer.sharable_link, title: @transfer.title, type: @transfer.type, user_id: @transfer.user_id } }
+      post transfers_path, params: { transfer: { file: fixture_file_upload('test_text_file.txt', 'text/plain'),
+                                                 description: @transfer.description, 
+                                                 title: @transfer.title, file_type: @transfer.file_type,  } }
     end
-
-    assert_redirected_to transfer_url(Transfer.last)
+    assert_redirected_to user_url(john)
   end
 
   test "should show transfer" do
