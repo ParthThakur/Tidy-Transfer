@@ -2,8 +2,8 @@ class SessionsController < ApplicationController
   skip_before_action :authorize, only: [:new, :create]
 
   def new
-    if session[:user_id]
-      redirect_to user_url(session[:user_id])
+    if user_signed_in?
+      redirect_to user_url(current_user)
     end
   end
 
