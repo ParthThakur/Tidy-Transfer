@@ -69,6 +69,9 @@ class TransfersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_transfer
       @transfer = Transfer.find(params[:id])
+      unless current_user == @transfer.user
+        redirect_to user_url(current_user), notice: "You don't have the required permission."
+      end
     end
 
     # Only allow a list of trusted parameters through.
