@@ -9,6 +9,9 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+    unless params[:id] == "#{current_user.id}"
+      redirect_to user_url(current_user), notice: "You don't have the permissions to see that."
+    end
   end
 
   # GET /users/new
