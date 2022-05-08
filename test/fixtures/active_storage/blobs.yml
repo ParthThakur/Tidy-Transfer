@@ -1,0 +1,13 @@
+john_file_blob:
+  key: 1
+  filename: test_pdf_file.pdf
+  byte_size: <%= File.size('test/fixtures/files/test_pdf_file.pdf') %>
+  service_name: local
+
+
+jane_file_blob:
+  key: 2
+  filename: test_pdf_file.pdf
+  byte_size: <%= File.size('test/fixtures/files/test_text_file.txt') %>
+  service_name: local
+

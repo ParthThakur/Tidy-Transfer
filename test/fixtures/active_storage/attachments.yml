@@ -1,0 +1,9 @@
+john_file:
+  name: file
+  record: john (User)
+  blob: john_file_blob
+
+jane_file:
+  name: file
+  record: jane (User)
+  blob: jane_file_blob

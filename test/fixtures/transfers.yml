@@ -5,11 +5,11 @@ one:
   file_type: 
   description: MyText
   sharable_link:
-  user: one
+  user: john
 
 two:
   title: File_two.pdf
   file_type: 
   description: MyText
   sharable_link:
-  user: two
+  user: jane
