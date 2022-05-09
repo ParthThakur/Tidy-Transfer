@@ -3,7 +3,7 @@
   <p><%= @transfer.description %></p>
   <p><%= @transfer.file_type %></p>
   <div class="d-flex flex-row">
-    <div class="pe-5"><%= link_to "Download File", rails_blob_url(@transfer.file), 
+    <div class="pe-5"><%= link_to "Download File", @transfer.blob_url, 
                           disposition: "attachment", target:"_blank",
                           class:"btn btn-warning"%></div>
   </div>

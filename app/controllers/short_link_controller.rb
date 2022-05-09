@@ -10,7 +10,11 @@ class ShortLinkController < ApplicationController
         begin
             @transfer.sharable_link = get_short_link
             @transfer.save
-            redirect_to request.referrer
+            if request.referrer
+                redirect_to request.referrer
+            else
+                redirect_to user_url(current_user)
+            end
         rescue ActiveRecord::RecordInvalid
             # Generate a new link if generated link already exists.
             tries += 1
