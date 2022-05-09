@@ -8,6 +8,7 @@ class TransfersController < ApplicationController
 
   # GET /transfers/1 or /transfers/1.json
   def show
+    @transfer.blob_url = rails_blob_path(@transfer.file)
   end
 
   # GET /transfers/new
@@ -27,7 +28,6 @@ class TransfersController < ApplicationController
     if params[:transfer][:title] == ""
       @transfer.title = @transfer.file.filename
     end
-    @transfer.blob_url = rails_blob_url(@transfer.file)
     @transfer.file_type = @transfer.file.content_type
 
     respond_to do |format|

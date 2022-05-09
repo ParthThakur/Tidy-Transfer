@@ -4,7 +4,7 @@
   <p><%= transfer.file_type %></p>
   <div class="d-flex flex-row">
     <div class="pe-5"><%= link_to "Download File", transfer.blob_url, 
-                          disposition: "attachment", target:"_blank",
+                          target:"_blank",
                           class:"btn btn-warning"%></div>
     <% if current_user == transfer.user %>
       <div class="pe-5">

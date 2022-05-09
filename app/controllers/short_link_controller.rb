@@ -33,6 +33,8 @@ class ShortLinkController < ApplicationController
         
         if @transfer.nil?
             redirect_to 'errors/404', status: 404
+        else
+            @blob_url = rails_blob_path(@transfer.file)
         end
 
         if current_user == @transfer.user
